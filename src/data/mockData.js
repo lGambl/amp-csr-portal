@@ -36,6 +36,8 @@ export const STATUS = [
     },
 ];
 
+export const ACCOUNT_STATUSES = ["Active", "Inactive", "Cancelled"];
+
 export const STATES = ["CA", "TX", "FL", "NY", "WA", "CO", "IL", "GA", "AZ", "NC"];
 
 export const MAKES = [
@@ -288,7 +290,7 @@ export function generateUsers() {
             state: pick(STATES, r),
             zip: `${Math.floor(10000 + r() * 90000)}`,
             accountStatus: pick(
-                ["Active", "Active", "Active", "Suspended", "Inactive"],
+                ACCOUNT_STATUSES,
                 r,
             ),
             vehicles,

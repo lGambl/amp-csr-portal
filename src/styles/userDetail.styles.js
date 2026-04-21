@@ -3,7 +3,7 @@ export const sx = {
   header:        { px: 3, py: 2.5, background: "#161921", borderBottom: "1px solid #2a2f42" },
   headerMain:    { mt: 0.5 },
   headerNameRow: { display: "flex", alignItems: "center", gap: 1.5, flexWrap: "wrap" },
-  content:       { p: 3 },
+  content:       { p: { xs: 2, md: 3 } },
   backBtn:       { color: "#8b92ab", fontSize: 12, fontFamily: "'DM Sans', sans-serif", textTransform: "none", p: 0, minWidth: 0, mb: 1, "&:hover": { color: "#e8eaf2", background: "transparent" } },
   userName:      { fontSize: 22, fontWeight: 700, color: "#e8eaf2", fontFamily: "'Syne', sans-serif", letterSpacing: "-0.01em" },
   userMeta:      { fontSize: 12, color: "#5c6278", fontFamily: "'DM Sans', sans-serif", mt: 0.5 },

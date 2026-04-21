@@ -18,7 +18,8 @@ import { STATUS_COLORS } from "../styles/userList.styles";
 import { sx } from "../styles/vehicles.styles";
 import { MAKES, MODELS, COLORS } from "../data/mockData";
 
-const YEARS = Array.from({ length: 16 }, (_, i) => String(2010 + i));
+const CURRENT_YEAR = new Date().getFullYear();
+const YEARS = Array.from({ length: CURRENT_YEAR - 2009 }, (_, i) => String(2010 + i));
 const WASH_PLANS = WASH_PLANS_PRICING.map((p) => p.name);
 const PLAN_PRICES = Object.fromEntries(
     WASH_PLANS_PRICING.map((p) => [p.name, p.price]),
@@ -33,6 +34,24 @@ const EMPTY_FORM = {
     plan: "Basic",
     status: "Active",
 };
+
+function daysFromNow(days) {
+    return new Date(Date.now() + days * 24 * 3600 * 1000)
+        .toISOString()
+        .split("T")[0];
+}
+
+function normalizeVehicle(vehicle) {
+    return {
+        ...vehicle,
+        plate: (vehicle.plate || "").trim(),
+        planPrice: PLAN_PRICES[vehicle.plan],
+        nextBillingDate:
+            vehicle.status === "Cancelled"
+                ? null
+                : vehicle.nextBillingDate || daysFromNow(30),
+    };
+}
 
 function VehicleForm({ form, setForm }) {
     const set = (key) => (e) =>
@@ -248,7 +267,7 @@ export default function Vehicles({ user, onUpdateUser }) {
         updateVehicles(
             user.vehicles.map((v) =>
                 v.id === editForm.id
-                    ? { ...editForm, planPrice: PLAN_PRICES[editForm.plan] }
+                    ? normalizeVehicle(editForm)
                     : v,
             ),
         );
@@ -261,27 +280,19 @@ export default function Vehicles({ user, onUpdateUser }) {
     };
 
     const addVehicle = () => {
-        const newV = {
+        const newV = normalizeVehicle({
             ...newForm,
+            plate: newForm.plate.trim(),
             id: `V${String(Date.now()).slice(-4)}`,
-            planPrice: PLAN_PRICES[newForm.plan],
             startDate: new Date().toISOString().split("T")[0],
-            nextBillingDate:
-                newForm.status === "Cancelled"
-                    ? null
-                    : new Date(Date.now() + 30 * 24 * 3600 * 1000)
-                          .toISOString()
-                          .split("T")[0],
-        };
+        });
         updateVehicles([...user.vehicles, newV]);
         setAddOpen(false);
         setNewForm({ ...EMPTY_FORM });
     };
 
     const doTransfer = () => {
-        const nextBilling = new Date(Date.now() + 30 * 24 * 3600 * 1000)
-            .toISOString()
-            .split("T")[0];
+        const nextBilling = daysFromNow(30);
         updateVehicles(
             user.vehicles.map((v) => {
                 if (v.id === transferSource.id)
@@ -352,7 +363,11 @@ export default function Vehicles({ user, onUpdateUser }) {
                     <Button onClick={() => setEditForm(null)} sx={sx.cancelBtn}>
                         Cancel
                     </Button>
-                    <Button onClick={saveEdit} sx={sx.saveBtn}>
+                    <Button
+                        onClick={saveEdit}
+                        disabled={!(editForm?.plate || "").trim()}
+                        sx={sx.saveBtn}
+                    >
                         Save
                     </Button>
                 </DialogActions>
@@ -376,7 +391,7 @@ export default function Vehicles({ user, onUpdateUser }) {
                     </Button>
                     <Button
                         onClick={addVehicle}
-                        disabled={!newForm.plate}
+                        disabled={!newForm.plate.trim()}
                         sx={sx.saveBtn}
                     >
                         Add Vehicle

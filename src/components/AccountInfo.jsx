@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { Box, Typography, TextField, Select, MenuItem, Button, Divider } from "@mui/material";
 import { sx } from "../styles/accountInfo.styles";
-
-const ACCOUNT_STATUSES = ["Active", "Inactive", "Suspended"];
+import { ACCOUNT_STATUSES } from "../data/mockData";
 
 function InfoField({ label, editing, value, span, children }) {
   return (
-    <Box sx={{ ...sx.fieldGroup, ...(span ? { gridColumn: `span ${span}` } : {}) }}>
+    <Box sx={{ ...sx.fieldGroup, ...(span ? { gridColumn: { xs: "span 1", md: `span ${span}` } } : {}) }}>
       <Typography sx={sx.fieldLabel}>{label}</Typography>
       {editing ? children : <Typography sx={sx.fieldValue}>{value}</Typography>}
     </Box>

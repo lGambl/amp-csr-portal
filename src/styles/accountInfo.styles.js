@@ -1,10 +1,10 @@
 export const sx = {
-  sectionHeader:   { display: "flex", justifyContent: "space-between", alignItems: "center", mb: 3 },
+  sectionHeader:   { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 1.5, mb: 3 },
   sectionTitle:    { fontSize: 15, fontWeight: 600, color: "#e8eaf2", fontFamily: "'DM Sans', sans-serif" },
   sectionSubtitle: { fontSize: 11, fontWeight: 600, color: "#5c6278", fontFamily: "'DM Sans', sans-serif", textTransform: "uppercase", letterSpacing: "0.08em", mb: 2 },
   divider:         { borderColor: "#2a2f42", my: 3 },
   btnRow:          { display: "flex", gap: 1 },
-  fieldGrid:       { display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 2.5 },
+  fieldGrid:       { display: "grid", gridTemplateColumns: { xs: "1fr", md: "repeat(3, 1fr)" }, gap: 2.5 },
   fieldGroup:      {},
   fieldLabel:      { fontSize: 11, fontWeight: 600, color: "#5c6278", fontFamily: "'DM Sans', sans-serif", textTransform: "uppercase", letterSpacing: "0.06em", mb: 0.5 },
   fieldValue:      { fontSize: 13, color: "#e8eaf2", fontFamily: "'DM Sans', sans-serif" },

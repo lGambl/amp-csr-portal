@@ -2,11 +2,11 @@ const _fieldValue = { fontSize: 13, color: "#e8eaf2", fontFamily: "'DM Sans', sa
 
 export const sx = {
   // Section
-  sectionHeader: { display: "flex", justifyContent: "space-between", alignItems: "center", mb: 3 },
+  sectionHeader: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 1.5, mb: 3 },
   sectionTitle:  { fontSize: 15, fontWeight: 600, color: "#e8eaf2", fontFamily: "'DM Sans', sans-serif" },
 
   // Vehicle grid & card
-  vehicleGrid:        { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: 2 },
+  vehicleGrid:        { display: "grid", gridTemplateColumns: { xs: "1fr", md: "repeat(auto-fill, minmax(300px, 1fr))" }, gap: 2 },
   vehicleCard:        { background: "#161921", border: "1px solid #2a2f42", borderRadius: "10px", p: 2.5, transition: "border-color 0.15s", "&:hover": { borderColor: "#343a50" } },
   vehicleCardHeader:  { display: "flex", justifyContent: "space-between", alignItems: "flex-start", mb: 1.5 },
   vehicleDivider:     { borderColor: "#2a2f42", mb: 1.5 },
@@ -24,8 +24,8 @@ export const sx = {
   fieldValueAccent: { ..._fieldValue, color: "#4f8fff" },
 
   // Vehicle form
-  vehicleFormGrid: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 2, mt: 1 },
-  spanTwo:         { gridColumn: "span 2" },
+  vehicleFormGrid: { display: "grid", gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" }, gap: 2, mt: 1 },
+  spanTwo:         { gridColumn: { xs: "span 1", sm: "span 2" } },
 
   // Inputs
   textField: {

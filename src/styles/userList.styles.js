@@ -9,8 +9,8 @@ export const STATUS_COLORS = {
 export const STAT_CARDS = (users) => [
   { label: "Total Customers",       value: users.length,                                                           color: "#4f8fff" },
   { label: "Active Accounts",       value: users.filter(u => u.accountStatus === "Active").length,                 color: "#34d399" },
-  { label: "Active Subscriptions",  value: users.filter(u => u.vehicles.some(v => v.status === "Active")).length,  color: "#4f8fff" },
-  { label: "Overdue Subscriptions", value: users.filter(u => u.vehicles.some(v => v.status === "Overdue")).length, color: "#f87171" },
+  { label: "Active Subscriptions",  value: users.reduce((sum, u) => sum + u.vehicles.filter(v => v.status === "Active").length, 0),  color: "#4f8fff" },
+  { label: "Overdue Subscriptions", value: users.reduce((sum, u) => sum + u.vehicles.filter(v => v.status === "Overdue").length, 0), color: "#f87171" },
 ];
 
 export const DROPDOWN_MENU_PROPS = {
@@ -39,19 +39,20 @@ const cell = {
 
 export const sx = {
   wrapper:        { p: 3, background: "#0d0f14", minHeight: "100vh" },
-  statGrid:       { display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 2, mb: 3 },
+  statGrid:       { display: "grid", gridTemplateColumns: { xs: "1fr", sm: "repeat(2, 1fr)", lg: "repeat(4, 1fr)" }, gap: 2, mb: 3 },
   statCard:       (color) => ({ background: "#161921", border: "1px solid #2a2f42", borderTop: `2px solid ${color}`, borderRadius: "10px", p: 2.5 }),
   statNumber:     (color) => ({ fontSize: 30, fontWeight: 700, color, fontFamily: "'Syne', sans-serif", lineHeight: 1 }),
   statLabel:      { fontSize: 12, color: "#5c6278", mt: 0.75, fontFamily: "'DM Sans', sans-serif" },
-  toolbar:        { display: "flex", alignItems: "center", gap: 2, mb: 2, background: "#161921", border: "1px solid #2a2f42", borderRadius: "10px", p: 1.5 },
+  toolbar:        { display: "flex", alignItems: { xs: "stretch", md: "center" }, flexDirection: { xs: "column", md: "row" }, gap: 2, mb: 2, background: "#161921", border: "1px solid #2a2f42", borderRadius: "10px", p: 1.5 },
   searchWrap:     { display: "flex", alignItems: "center", gap: 1, flex: 1, background: "#1e2130", border: "1px solid #2a2f42", borderRadius: "6px", px: 1.5, py: 0.75 },
   searchIcon:     { color: "#5c6278", fontSize: 15, lineHeight: 1 },
   searchInput:    { flex: 1, color: "#e8eaf2", fontSize: 13, fontFamily: "'DM Sans', sans-serif", "& input::placeholder": { color: "#5c6278", opacity: 1 } },
   filterSelect:   { color: "#e8eaf2", fontSize: 13, fontFamily: "'DM Sans', sans-serif", background: "#1e2130", borderRadius: "6px", "& .MuiOutlinedInput-notchedOutline": { borderColor: "#2a2f42" }, "&:hover .MuiOutlinedInput-notchedOutline": { borderColor: "#343a50" }, "&.Mui-focused .MuiOutlinedInput-notchedOutline": { borderColor: "#4f8fff" }, "& .MuiSvgIcon-root": { color: "#5c6278" } },
   resultCount:    { color: "#5c6278", fontSize: 12, whiteSpace: "nowrap", pr: 0.5 },
-  tableContainer: { background: "#161921", border: "1px solid #2a2f42", borderRadius: "10px", overflow: "hidden" },
+  tableContainer: { background: "#161921", border: "1px solid #2a2f42", borderRadius: "10px", overflowX: "auto" },
+  table:          { minWidth: 980 },
   headCell:       { ...cell, color: "#5c6278", fontWeight: 600, fontSize: 11, letterSpacing: "0.08em", textTransform: "uppercase", background: "#161921" },
-  tableRow:       { cursor: "pointer", transition: "background 0.12s", "&:hover": { background: "#1e2130" }, "&:last-child td": { borderBottom: 0 } },
+  tableRow:       { cursor: "pointer", transition: "background 0.12s", "&:hover": { background: "#1e2130" }, "&:focus-visible": { outline: "2px solid #4f8fff", outlineOffset: "-2px" }, "&:last-child td": { borderBottom: 0 } },
   cellDefault:    { ...cell },
   cellId:         { ...cell, color: "#4f8fff", fontFamily: "'DM Mono', monospace", fontSize: 12 },
   cellMuted:      { ...cell, color: "#8b92ab" },

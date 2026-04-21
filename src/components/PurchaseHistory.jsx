@@ -21,7 +21,7 @@ export default function PurchaseHistory({ purchases }) {
       </Box>
 
       <TableContainer sx={sx.tableContainer}>
-        <Table>
+        <Table sx={sx.table}>
           <TableHead>
             <TableRow>
               {["Date", "Transaction ID", "Description", "Type", "Amount", "Status"].map(col => (
