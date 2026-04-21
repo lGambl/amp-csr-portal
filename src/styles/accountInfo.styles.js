@@ -37,4 +37,10 @@ export const sx = {
   editBtn:   { color: "var(--accent)", fontSize: 12, fontFamily: "'DM Sans', sans-serif", textTransform: "none", border: "1px solid var(--accent-border)", borderRadius: "6px", px: 1.5, py: 0.5, "&:hover": { background: "var(--accent-soft)", borderColor: "var(--accent)" } },
   saveBtn:   { color: "var(--text-on-accent)", background: "var(--accent)", fontSize: 12, fontFamily: "'DM Sans', sans-serif", textTransform: "none", borderRadius: "6px", px: 2, py: 0.5, fontWeight: 600, "&:hover": { background: "var(--accent-hover)" }, "&.Mui-disabled": { background: "var(--disabled-bg)", color: "var(--text3)" } },
   cancelBtn: { color: "var(--text2)", fontSize: 12, fontFamily: "'DM Sans', sans-serif", textTransform: "none", borderRadius: "6px", px: 1.5, py: 0.5, "&:hover": { background: "var(--surface2)" } },
+  dialogPaper:   { background: "var(--surface)", border: "1px solid var(--border)", borderRadius: "10px", minWidth: 360 },
+  dialogTitle:   { color: "var(--text)", fontFamily: "'DM Sans', sans-serif", fontSize: 15, fontWeight: 600, pb: 1 },
+  dialogContent: { pt: 0 },
+  dialogBody:    { color: "var(--text2)", fontFamily: "'DM Sans', sans-serif", fontSize: 13 },
+  dialogEmail:   { color: "var(--accent)", fontFamily: "'DM Sans', sans-serif", fontSize: 13, fontWeight: 600, mt: 1 },
+  dialogActions: { px: 3, pb: 2, gap: 1 },
 };

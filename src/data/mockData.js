@@ -40,6 +40,8 @@ export const ACCOUNT_STATUSES = ["Active", "Inactive", "Cancelled"];
 
 export const STATES = ["CA", "TX", "FL", "NY", "WA", "CO", "IL", "GA", "AZ", "NC"];
 
+export const CARD_TYPES = ["Visa", "Mastercard", "Amex", "Discover"];
+
 export const MAKES = [
     "Toyota",
     "Honda",
@@ -204,6 +206,7 @@ function genDate(r, yearsBack = 2) {
 
 export function generateUsers() {
     const WASH_PLANS = WASH_PLANS_PRICING.map((p) => p.name);
+    const CARD_EXPIRY_YEARS = [2026, 2027, 2028, 2029, 2030];
     const PLAN_PRICES = Object.fromEntries(
         WASH_PLANS_PRICING.map((p) => [p.name, p.price]),
     );
@@ -274,6 +277,11 @@ export function generateUsers() {
             };
         }).sort((a, b) => b.date.localeCompare(a.date));
 
+        const cardType = pick(CARD_TYPES, r);
+        const last4 = String(Math.floor(1000 + r() * 9000));
+        const expMonth = String(Math.floor(1 + r() * 12)).padStart(2, "0");
+        const expYear = pick(CARD_EXPIRY_YEARS, r);
+
         const fn = FIRST[i % FIRST.length];
         const ln = LAST[Math.floor(i * 1.7) % LAST.length];
         users.push({
@@ -305,6 +313,7 @@ export function generateUsers() {
                 ACCOUNT_STATUSES,
                 r,
             ),
+            payment: { cardType, last4, expMonth, expYear },
             vehicles,
             subscriptions,
             purchases,

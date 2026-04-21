@@ -16,6 +16,7 @@ import {
 import { WASH_PLANS_PRICING, STATUS, MAKES, MODELS, COLORS } from "../data/mockData";
 import { STATUS_COLORS } from "../styles/userList.styles";
 import { sx } from "../styles/vehicles.styles";
+import { useToast } from "../context/ToastContext";
 
 const CURRENT_YEAR = new Date().getFullYear();
 const YEARS = Array.from({ length: CURRENT_YEAR - 2009 }, (_, i) => String(2010 + i));
@@ -161,6 +162,7 @@ function VehicleCard({ vehicle, sub, onEditVehicle, onRemoveVehicle, onEditSub, 
 }
 
 export default function Vehicles({ user, onUpdateUser }) {
+    const showToast = useToast();
     const [editVehicleForm, setEditVehicleForm] = useState(null);
     const [addVehicleOpen, setAddVehicleOpen]   = useState(false);
     const [newVehicleForm, setNewVehicleForm]   = useState({ ...EMPTY_VEHICLE_FORM });
@@ -183,87 +185,124 @@ export default function Vehicles({ user, onUpdateUser }) {
         onUpdateUser({ ...user, vehicles, subscriptions });
 
     const saveEditVehicle = () => {
-        update(
-            user.vehicles.map((v) =>
-                v.id === editVehicleForm.id
-                    ? { ...editVehicleForm, plate: editVehicleForm.plate.trim() }
-                    : v,
-            ),
-            user.subscriptions,
-        );
-        setEditVehicleForm(null);
+        try {
+            update(
+                user.vehicles.map((v) =>
+                    v.id === editVehicleForm.id
+                        ? { ...editVehicleForm, plate: editVehicleForm.plate.trim() }
+                        : v,
+                ),
+                user.subscriptions,
+            );
+            setEditVehicleForm(null);
+            showToast("Vehicle updated");
+        } catch {
+            showToast("Failed to update vehicle", "error");
+        }
     };
 
     const addVehicle = () => {
-        const newV = {
-            ...newVehicleForm,
-            plate: newVehicleForm.plate.trim(),
-            id: `V${String(Date.now()).slice(-4)}`,
-        };
-        update([...user.vehicles, newV], user.subscriptions);
-        setAddVehicleOpen(false);
-        setNewVehicleForm({ ...EMPTY_VEHICLE_FORM });
+        try {
+            const newV = {
+                ...newVehicleForm,
+                plate: newVehicleForm.plate.trim(),
+                id: `V${String(Date.now()).slice(-4)}`,
+            };
+            update([...user.vehicles, newV], user.subscriptions);
+            setAddVehicleOpen(false);
+            setNewVehicleForm({ ...EMPTY_VEHICLE_FORM });
+            showToast("Vehicle added");
+        } catch {
+            showToast("Failed to add vehicle", "error");
+        }
     };
 
     const confirmRemoveVehicle = () => {
-        update(
-            user.vehicles.filter((v) => v.id !== removeVehicleTarget.id),
-            user.subscriptions.filter((s) => s.vehicleId !== removeVehicleTarget.id),
-        );
-        setRemoveVehicleTarget(null);
+        try {
+            const label = `${removeVehicleTarget.year} ${removeVehicleTarget.make} ${removeVehicleTarget.model}`;
+            update(
+                user.vehicles.filter((v) => v.id !== removeVehicleTarget.id),
+                user.subscriptions.filter((s) => s.vehicleId !== removeVehicleTarget.id),
+            );
+            setRemoveVehicleTarget(null);
+            showToast(`${label} removed`, "warning");
+        } catch {
+            showToast("Failed to remove vehicle", "error");
+        }
     };
 
     const saveEditSub = () => {
-        update(
-            user.vehicles,
-            user.subscriptions.map((s) =>
-                s.id === editSubForm.id
-                    ? {
-                          ...editSubForm,
-                          planPrice: PLAN_PRICES[editSubForm.plan],
-                          nextBillingDate:
-                              editSubForm.status === "Cancelled"
-                                  ? null
-                                  : editSubForm.nextBillingDate || daysFromNow(30),
-                      }
-                    : s,
-            ),
-        );
-        setEditSubForm(null);
+        try {
+            update(
+                user.vehicles,
+                user.subscriptions.map((s) =>
+                    s.id === editSubForm.id
+                        ? {
+                              ...editSubForm,
+                              planPrice: PLAN_PRICES[editSubForm.plan],
+                              nextBillingDate:
+                                  editSubForm.status === "Cancelled"
+                                      ? null
+                                      : editSubForm.nextBillingDate || daysFromNow(30),
+                          }
+                        : s,
+                ),
+            );
+            setEditSubForm(null);
+            showToast("Subscription updated");
+        } catch {
+            showToast("Failed to update subscription", "error");
+        }
     };
 
     const addSub = () => {
-        const newSub = {
-            id: `SUB-${String(Date.now()).slice(-4)}`,
-            vehicleId: addSubVehicleId,
-            plan: newSubForm.plan,
-            planPrice: PLAN_PRICES[newSubForm.plan],
-            status: newSubForm.status,
-            nextBillingDate: newSubForm.status === "Cancelled" ? null : daysFromNow(30),
-            startDate: new Date().toISOString().split("T")[0],
-        };
-        update(user.vehicles, [...user.subscriptions, newSub]);
-        setAddSubVehicleId(null);
-        setNewSubForm({ ...EMPTY_SUB_FORM });
+        try {
+            const newSub = {
+                id: `SUB-${String(Date.now()).slice(-4)}`,
+                vehicleId: addSubVehicleId,
+                plan: newSubForm.plan,
+                planPrice: PLAN_PRICES[newSubForm.plan],
+                status: newSubForm.status,
+                nextBillingDate: newSubForm.status === "Cancelled" ? null : daysFromNow(30),
+                startDate: new Date().toISOString().split("T")[0],
+            };
+            update(user.vehicles, [...user.subscriptions, newSub]);
+            setAddSubVehicleId(null);
+            setNewSubForm({ ...EMPTY_SUB_FORM });
+            showToast("Subscription added");
+        } catch {
+            showToast("Failed to add subscription", "error");
+        }
     };
 
     const confirmRemoveSub = () => {
-        update(
-            user.vehicles,
-            user.subscriptions.filter((s) => s.id !== removeSubTarget.id),
-        );
-        setRemoveSubTarget(null);
+        try {
+            const planName = removeSubTarget.plan;
+            update(
+                user.vehicles,
+                user.subscriptions.filter((s) => s.id !== removeSubTarget.id),
+            );
+            setRemoveSubTarget(null);
+            showToast(`${planName} subscription removed`, "warning");
+        } catch {
+            showToast("Failed to remove subscription", "error");
+        }
     };
 
     const doTransfer = () => {
-        update(
-            user.vehicles,
-            user.subscriptions.map((s) =>
-                s.id === transferSub.id ? { ...s, vehicleId: transferTargetId } : s,
-            ),
-        );
-        setTransferSub(null);
-        setTransferTargetId("");
+        try {
+            update(
+                user.vehicles,
+                user.subscriptions.map((s) =>
+                    s.id === transferSub.id ? { ...s, vehicleId: transferTargetId } : s,
+                ),
+            );
+            setTransferSub(null);
+            setTransferTargetId("");
+            showToast("Subscription transferred");
+        } catch {
+            showToast("Failed to transfer subscription", "error");
+        }
     };
 
     const transferTargetVehicle = transferTargetId

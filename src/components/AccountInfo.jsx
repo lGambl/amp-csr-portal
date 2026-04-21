@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Box, Typography, TextField, Select, MenuItem, Button, Divider } from "@mui/material";
+import { Box, Typography, TextField, Select, MenuItem, Button, Divider, Dialog, DialogTitle, DialogContent, DialogActions } from "@mui/material";
 import { sx } from "../styles/accountInfo.styles";
 import { ACCOUNT_STATUSES } from "../data/mockData";
+import { useToast } from "../context/ToastContext";
 
 function InfoField({ label, editing, value, span, children }) {
   return (
@@ -22,14 +23,37 @@ function toForm(u) {
   };
 }
 
+function cardLabel(payment) {
+  return `${payment.cardType} ···· ${payment.last4}`;
+}
+
 export default function AccountInfo({ user, onUpdateUser }) {
+  const showToast = useToast();
   const [editing, setEditing] = useState(false);
   const [form, setForm]       = useState(() => toForm(user));
+  const [paymentDialogOpen, setPaymentDialogOpen] = useState(false);
 
   const set = (key) => (e) => setForm(f => ({ ...f, [key]: e.target.value }));
 
-  const handleSave = () => { onUpdateUser({ ...user, ...form }); setEditing(false); };
+  const handleSave = () => {
+    try {
+      onUpdateUser({ ...user, ...form });
+      setEditing(false);
+      showToast("Account info saved");
+    } catch {
+      showToast("Failed to save account info", "error");
+    }
+  };
   const handleCancel = () => { setForm(toForm(user)); setEditing(false); };
+
+  const handleSendPaymentLink = () => {
+    try {
+      setPaymentDialogOpen(false);
+      showToast(`Payment update link sent to ${user.email}`);
+    } catch {
+      showToast("Failed to send payment link", "error");
+    }
+  };
 
   return (
     <Box>
@@ -88,6 +112,40 @@ export default function AccountInfo({ user, onUpdateUser }) {
           <TextField value={form.zip} onChange={set("zip")} size="small" sx={sx.textField} fullWidth />
         </InfoField>
       </Box>
+
+      <Divider sx={sx.divider} />
+      <Box sx={sx.sectionHeader}>
+        <Typography sx={sx.sectionSubtitle} style={{ marginBottom: 0 }}>Payment Method</Typography>
+        <Button onClick={() => setPaymentDialogOpen(true)} sx={sx.editBtn}>Update Payment Method</Button>
+      </Box>
+
+      <Box sx={{ ...sx.fieldGrid, mt: 2 }}>
+        <Box sx={sx.fieldGroup}>
+          <Typography sx={sx.fieldLabel}>Card</Typography>
+          <Typography sx={sx.fieldValue}>{cardLabel(user.payment)}</Typography>
+        </Box>
+        <Box sx={sx.fieldGroup}>
+          <Typography sx={sx.fieldLabel}>Expiry</Typography>
+          <Typography sx={sx.fieldValue}>{user.payment.expMonth}/{user.payment.expYear}</Typography>
+        </Box>
+      </Box>
+
+      <Dialog open={paymentDialogOpen} onClose={() => setPaymentDialogOpen(false)} PaperProps={{ sx: sx.dialogPaper }}>
+        <DialogTitle sx={sx.dialogTitle}>Update Payment Method</DialogTitle>
+        <DialogContent sx={sx.dialogContent}>
+          <Typography sx={sx.dialogBody}>
+            To securely update the payment method on file, a link will be sent to the customer at:
+          </Typography>
+          <Typography sx={sx.dialogEmail}>{user.email}</Typography>
+          <Typography sx={sx.dialogBody} style={{ marginTop: 8 }}>
+            The link expires in 24 hours and will allow the customer to enter new card details.
+          </Typography>
+        </DialogContent>
+        <DialogActions sx={sx.dialogActions}>
+          <Button onClick={() => setPaymentDialogOpen(false)} sx={sx.cancelBtn}>Cancel</Button>
+          <Button onClick={handleSendPaymentLink} sx={sx.saveBtn}>Send Link</Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 }

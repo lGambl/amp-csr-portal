@@ -12,6 +12,7 @@ import {
   getTheme,
 } from './theme/themes'
 import { sx } from './styles/app.styles'
+import { ToastProvider } from './context/ToastContext'
 
 const INITIAL_USERS = generateUsers();
 
@@ -59,6 +60,7 @@ function App() {
 
   return (
     <ThemeProvider theme={muiTheme}>
+    <ToastProvider>
     <Box sx={sx.root}>
       <Box sx={sx.header}>
         <Box>
@@ -95,6 +97,7 @@ function App() {
         <UserList users={users} onSelectUser={setSelectedUser} />
       )}
     </Box>
+    </ToastProvider>
     </ThemeProvider>
   );
 }
