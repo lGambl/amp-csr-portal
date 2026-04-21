@@ -140,6 +140,7 @@ function VehicleCard({ vehicle, sub, onEditVehicle, onRemoveVehicle, onEditSub, 
 
 export default function Vehicles({ user, onUpdateUser }) {
   const showToast = useToast();
+  const [search, setSearch] = useState("");
 
   const [editVehicleForm, setEditVehicleForm]           = useState(null);
   const [addVehicleOpen, setAddVehicleOpen]             = useState(false);
@@ -156,6 +157,15 @@ export default function Vehicles({ user, onUpdateUser }) {
 
   const subForVehicle    = (vehicleId) => user.subscriptions.find(s => s.vehicleId === vehicleId) ?? null;
   const vehiclesWithoutSub = user.vehicles.filter(v => !subForVehicle(v.id));
+
+  const filteredVehicles = search.trim()
+    ? user.vehicles.filter(v => {
+        const q   = search.toLowerCase();
+        const sub = subForVehicle(v.id);
+        return [v.year, v.make, v.model, v.color, v.plate, v.id, sub?.plan, sub?.status]
+          .some(t => String(t ?? "").toLowerCase().includes(q));
+      })
+    : user.vehicles;
 
   const update = (vehicles, subscriptions) => onUpdateUser({ ...user, vehicles, subscriptions });
 
@@ -254,10 +264,28 @@ export default function Vehicles({ user, onUpdateUser }) {
         <button onClick={() => setAddVehicleOpen(true)} className="csr-btn csr-btn-save">+ Add Vehicle</button>
       </div>
 
+      <div className={styles.toolbar}>
+        <div className={styles.searchWrap}>
+          <span className={styles.searchIcon}>⌕</span>
+          <input
+            className={styles.searchInput}
+            placeholder="Year, make, model, plate, plan..."
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+          />
+        </div>
+        <span className={styles.resultCount}>
+          {filteredVehicles.length} of {user.vehicles.length}
+        </span>
+      </div>
+
       {user.vehicles.length === 0 && <p className={styles.emptyMsg}>No vehicles on this account.</p>}
+      {user.vehicles.length > 0 && filteredVehicles.length === 0 && (
+        <p className={styles.emptyMsg}>No vehicles match "{search}".</p>
+      )}
 
       <div className={styles.vehicleGrid}>
-        {user.vehicles.map(v => {
+        {filteredVehicles.map(v => {
           const sub = subForVehicle(v.id);
           return (
             <VehicleCard
