@@ -35,9 +35,6 @@ export default function Settings({ themeId, onThemeChange, onBackToCustomers }) 
           <Typography sx={sx.title}>Settings</Typography>
           <Typography sx={sx.meta}>Theme</Typography>
         </Box>
-        <Button onClick={onBackToCustomers} sx={sx.backBtn}>
-          Back to Customers
-        </Button>
       </Box>
 
       <Box sx={sx.section}>
