@@ -36,9 +36,9 @@ export const STATUS = [
     },
 ];
 
-const STATES = ["CA", "TX", "FL", "NY", "WA", "CO", "IL", "GA", "AZ", "NC"];
+export const STATES = ["CA", "TX", "FL", "NY", "WA", "CO", "IL", "GA", "AZ", "NC"];
 
-const MAKES = [
+export const MAKES = [
     "Toyota",
     "Honda",
     "Ford",
@@ -51,7 +51,7 @@ const MAKES = [
     "Subaru",
 ];
 
-const MODELS = {
+export const MODELS = {
     Toyota: ["Camry", "Corolla", "RAV4"],
     Honda: ["Civic", "Accord", "CR-V"],
     Ford: ["F-150", "Mustang", "Explorer"],
@@ -64,7 +64,7 @@ const MODELS = {
     Subaru: ["Outback", "Forester", "Impreza"],
 };
 
-const COLORS = [
+export const COLORS = [
     "White",
     "Black",
     "Silver",
