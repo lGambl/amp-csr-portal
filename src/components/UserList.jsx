@@ -25,7 +25,7 @@ export default function UserList({ users, onSelectUser }) {
       const matchStatus = statusFilter === "All" || u.accountStatus === statusFilter;
       const matchSubscription =
         subscriptionFilter === "All" ||
-        u.vehicles.some(v => v.status === subscriptionFilter);
+        u.subscriptions.some(s => s.status === subscriptionFilter);
       return matchSearch && matchStatus && matchSubscription;
     });
   }, [users, search, statusFilter, subscriptionFilter]);

@@ -9,8 +9,8 @@ export const STATUS_COLORS = {
 export const STAT_CARDS = (users) => [
   { label: "Total Customers",       value: users.length,                                                           color: "var(--accent)" },
   { label: "Active Accounts",       value: users.filter(u => u.accountStatus === "Active").length,                 color: "var(--green)" },
-  { label: "Active Subscriptions",  value: users.reduce((sum, u) => sum + u.vehicles.filter(v => v.status === "Active").length, 0),  color: "var(--accent)" },
-  { label: "Overdue Subscriptions", value: users.reduce((sum, u) => sum + u.vehicles.filter(v => v.status === "Overdue").length, 0), color: "var(--red)" },
+  { label: "Active Subscriptions",  value: users.reduce((sum, u) => sum + u.subscriptions.filter(s => s.status === "Active").length, 0),  color: "var(--accent)" },
+  { label: "Overdue Subscriptions", value: users.reduce((sum, u) => sum + u.subscriptions.filter(s => s.status === "Overdue").length, 0), color: "var(--red)" },
 ];
 
 export const DROPDOWN_MENU_PROPS = {

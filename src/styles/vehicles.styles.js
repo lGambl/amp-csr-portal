@@ -9,6 +9,7 @@ export const sx = {
   vehicleGrid:        { display: "grid", gridTemplateColumns: { xs: "1fr", md: "repeat(auto-fill, minmax(300px, 1fr))" }, gap: 2 },
   vehicleCard:        { background: "var(--surface)", border: "1px solid var(--border)", borderRadius: "10px", p: 2.5, transition: "border-color 0.15s", "&:hover": { borderColor: "var(--border2)" } },
   vehicleCardHeader:  { display: "flex", justifyContent: "space-between", alignItems: "flex-start", mb: 1.5 },
+  cardVehicleBtns:    { display: "flex", gap: 0.5, flexShrink: 0 },
   vehicleDivider:     { borderColor: "var(--border)", mb: 1.5 },
   vehicleDetailsGrid: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 1, mb: 2 },
   vehicleActions:     { display: "flex", gap: 1, flexWrap: "wrap" },
@@ -17,6 +18,13 @@ export const sx = {
   vehicleIdText:      { fontSize: 11, color: "var(--accent)", fontFamily: "'DM Mono', monospace" },
   emptyMsg:           { color: "var(--text3)", fontSize: 13 },
   statusChip:         (sc) => ({ background: sc.bg, color: sc.color, border: `1px solid ${sc.border}`, fontSize: 11, fontWeight: 500, height: 22, borderRadius: "5px", fontFamily: "'DM Sans', sans-serif" }),
+
+  // Subscription section inside card
+  subSection:  { mt: 1.5 },
+  subHeader:   { display: "flex", justifyContent: "space-between", alignItems: "center", mb: 1.5 },
+  subLabel:    { fontSize: 11, fontWeight: 600, color: "var(--text3)", fontFamily: "'DM Sans', sans-serif", textTransform: "uppercase", letterSpacing: "0.08em" },
+  noSubRow:    { display: "flex", justifyContent: "space-between", alignItems: "center", mt: 1.5 },
+  subFormGrid: { display: "grid", gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" }, gap: 2, mt: 1 },
 
   // Fields
   fieldLabel:       { fontSize: 11, fontWeight: 600, color: "var(--text3)", fontFamily: "'DM Sans', sans-serif", textTransform: "uppercase", letterSpacing: "0.06em", mb: 0.5 },
