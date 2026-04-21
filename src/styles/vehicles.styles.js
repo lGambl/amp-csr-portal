@@ -52,7 +52,7 @@ export const sx = {
     "& .MuiSvgIcon-root": { color: "var(--text3)" },
   },
   menuProps: {
-    PaperProps: {
+    paperprops: {
       sx: {
         background: "var(--surface2)", border: "1px solid var(--border)", borderRadius: "6px",
         "& .MuiMenuItem-root": { color: "var(--text)", fontSize: 13, fontFamily: "'DM Sans', sans-serif" },

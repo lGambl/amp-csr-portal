@@ -343,7 +343,7 @@ export default function Vehicles({ user, onUpdateUser }) {
             </Box>
 
             {/* Edit Vehicle */}
-            <Dialog open={!!editVehicleForm} onClose={() => setEditVehicleForm(null)} maxWidth="xs" fullWidth PaperProps={{ sx: sx.dialogPaper }}>
+            <Dialog open={!!editVehicleForm} onClose={() => setEditVehicleForm(null)} maxWidth="xs" fullWidth paperprops={{ sx: sx.dialogPaper }}>
                 <DialogTitle sx={sx.dialogTitle}>Edit Vehicle</DialogTitle>
                 <DialogContent>
                     {editVehicleForm && <VehicleForm form={editVehicleForm} setForm={setEditVehicleForm} />}
@@ -355,7 +355,7 @@ export default function Vehicles({ user, onUpdateUser }) {
             </Dialog>
 
             {/* Add Vehicle */}
-            <Dialog open={addVehicleOpen} onClose={() => setAddVehicleOpen(false)} maxWidth="xs" fullWidth PaperProps={{ sx: sx.dialogPaper }}>
+            <Dialog open={addVehicleOpen} onClose={() => setAddVehicleOpen(false)} maxWidth="xs" fullWidth paperprops={{ sx: sx.dialogPaper }}>
                 <DialogTitle sx={sx.dialogTitle}>Add Vehicle</DialogTitle>
                 <DialogContent>
                     <VehicleForm form={newVehicleForm} setForm={setNewVehicleForm} />
@@ -367,7 +367,7 @@ export default function Vehicles({ user, onUpdateUser }) {
             </Dialog>
 
             {/* Remove Vehicle */}
-            <Dialog open={!!removeVehicleTarget} onClose={() => setRemoveVehicleTarget(null)} maxWidth="xs" fullWidth PaperProps={{ sx: sx.dialogPaper }}>
+            <Dialog open={!!removeVehicleTarget} onClose={() => setRemoveVehicleTarget(null)} maxWidth="xs" fullWidth paperprops={{ sx: sx.dialogPaper }}>
                 <DialogTitle sx={sx.dialogTitle}>Remove Vehicle</DialogTitle>
                 <DialogContent>
                     <Typography sx={sx.dialogWarnText}>
@@ -387,7 +387,7 @@ export default function Vehicles({ user, onUpdateUser }) {
             </Dialog>
 
             {/* Edit Subscription */}
-            <Dialog open={!!editSubForm} onClose={() => setEditSubForm(null)} maxWidth="xs" fullWidth PaperProps={{ sx: sx.dialogPaper }}>
+            <Dialog open={!!editSubForm} onClose={() => setEditSubForm(null)} maxWidth="xs" fullWidth paperprops={{ sx: sx.dialogPaper }}>
                 <DialogTitle sx={sx.dialogTitle}>Edit Subscription</DialogTitle>
                 <DialogContent>
                     {editSubForm && <SubForm form={editSubForm} setForm={setEditSubForm} />}
@@ -399,7 +399,7 @@ export default function Vehicles({ user, onUpdateUser }) {
             </Dialog>
 
             {/* Add Subscription */}
-            <Dialog open={!!addSubVehicleId} onClose={() => setAddSubVehicleId(null)} maxWidth="xs" fullWidth PaperProps={{ sx: sx.dialogPaper }}>
+            <Dialog open={!!addSubVehicleId} onClose={() => setAddSubVehicleId(null)} maxWidth="xs" fullWidth paperprops={{ sx: sx.dialogPaper }}>
                 <DialogTitle sx={sx.dialogTitle}>Add Subscription</DialogTitle>
                 <DialogContent>
                     <SubForm form={newSubForm} setForm={setNewSubForm} />
@@ -411,7 +411,7 @@ export default function Vehicles({ user, onUpdateUser }) {
             </Dialog>
 
             {/* Remove Subscription */}
-            <Dialog open={!!removeSubTarget} onClose={() => setRemoveSubTarget(null)} maxWidth="xs" fullWidth PaperProps={{ sx: sx.dialogPaper }}>
+            <Dialog open={!!removeSubTarget} onClose={() => setRemoveSubTarget(null)} maxWidth="xs" fullWidth paperprops={{ sx: sx.dialogPaper }}>
                 <DialogTitle sx={sx.dialogTitle}>Remove Subscription</DialogTitle>
                 <DialogContent>
                     <Typography sx={sx.dialogWarnText}>

@@ -1,6 +1,7 @@
 export const sx = {
-  root: { background: "var(--bg)", color: "var(--text)", minHeight: "100vh" },
+  root: { display: "flex", flexDirection: "column", height: "100%", background: "var(--bg)", color: "var(--text)", overflow: "hidden" },
   header: {
+    flexShrink: 0,
     px: { xs: 2, md: 3 },
     pt: { xs: 2, md: 3 },
     pb: 1.5,
@@ -12,6 +13,7 @@ export const sx = {
     gap: 2,
     flexWrap: "wrap",
   },
+  contentArea: { flex: 1, minHeight: 0, overflowY: "auto" },
   title: {
     fontSize: { xs: 17, md: 20 },
     fontWeight: 700,

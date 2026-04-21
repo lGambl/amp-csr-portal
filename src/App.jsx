@@ -81,21 +81,23 @@ function App() {
         </Box>
       </Box>
 
-      {view === "settings" ? (
-        <Settings
-          themeId={currentTheme.id}
-          onThemeChange={setThemeId}
-          onBackToCustomers={showCustomers}
-        />
-      ) : selectedUser ? (
-        <UserDetail
-          user={selectedUser}
-          onBack={() => setSelectedUser(null)}
-          onUpdateUser={onUpdateUser}
-        />
-      ) : (
-        <UserList users={users} onSelectUser={setSelectedUser} />
-      )}
+      <Box sx={sx.contentArea}>
+        {view === "settings" ? (
+          <Settings
+            themeId={currentTheme.id}
+            onThemeChange={setThemeId}
+            onBackToCustomers={showCustomers}
+          />
+        ) : selectedUser ? (
+          <UserDetail
+            user={selectedUser}
+            onBack={() => setSelectedUser(null)}
+            onUpdateUser={onUpdateUser}
+          />
+        ) : (
+          <UserList users={users} onSelectUser={setSelectedUser} />
+        )}
+      </Box>
     </Box>
     </ToastProvider>
     </ThemeProvider>

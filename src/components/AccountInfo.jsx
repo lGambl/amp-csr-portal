@@ -130,7 +130,7 @@ export default function AccountInfo({ user, onUpdateUser }) {
         </Box>
       </Box>
 
-      <Dialog open={paymentDialogOpen} onClose={() => setPaymentDialogOpen(false)} PaperProps={{ sx: sx.dialogPaper }}>
+      <Dialog open={paymentDialogOpen} onClose={() => setPaymentDialogOpen(false)} paperprops={{ sx: sx.dialogPaper }}>
         <DialogTitle sx={sx.dialogTitle}>Update Payment Method</DialogTitle>
         <DialogContent sx={sx.dialogContent}>
           <Typography sx={sx.dialogBody}>

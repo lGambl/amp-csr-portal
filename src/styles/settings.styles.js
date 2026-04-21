@@ -1,5 +1,5 @@
 export const sx = {
-  wrapper: { p: { xs: 2, md: 3 }, background: "var(--bg)", minHeight: "100vh" },
+  wrapper: { p: { xs: 2, md: 3 }, background: "var(--bg)" },
   header: {
     display: "flex",
     justifyContent: "space-between",

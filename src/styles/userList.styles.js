@@ -14,7 +14,7 @@ export const STAT_CARDS = (users) => [
 ];
 
 export const DROPDOWN_MENU_PROPS = {
-  PaperProps: {
+  paperprops: {
     sx: {
       background: "var(--surface2)",
       border: "1px solid var(--border)",
@@ -38,7 +38,7 @@ const cell = {
 };
 
 export const sx = {
-  wrapper:        { p: { xs: 2, md: 3 }, background: "var(--bg)", minHeight: "100vh" },
+  wrapper:        { p: { xs: 2, md: 3 }, background: "var(--bg)" },
   statGrid:       { display: "grid", gridTemplateColumns: { xs: "repeat(2, 1fr)", md: "repeat(2, 1fr)", lg: "repeat(4, 1fr)" }, gap: { xs: 1.5, md: 2 }, mb: { xs: 2, md: 3 } },
   statCard:       (color) => ({ background: "var(--surface)", border: "1px solid var(--border)", borderTop: `2px solid ${color}`, borderRadius: "10px", p: 2.5 }),
   statNumber:     (color) => ({ fontSize: 30, fontWeight: 700, color, fontFamily: "'Syne', sans-serif", lineHeight: 1 }),
