@@ -53,9 +53,9 @@ export default function UserList({ users, onSelectUser }) {
       {/* Toolbar */}
       <Box sx={sx.toolbar}>
         <Box sx={sx.searchWrap}>
-          <Typography sx={sx.searchIcon}>⌕</Typography>
+          <Typography sx={sx.searchIcon}>Search</Typography>
           <InputBase
-            placeholder="Search by name, email, phone, ID, or city…"
+            placeholder="Name, email, phone, ID, city, vehicle, or plate..."
             value={search}
             onChange={e => handleSearch(e.target.value)}
             sx={sx.searchInput}

@@ -13,14 +13,14 @@ export default function UserDetail({ user, onBack, onUpdateUser }) {
   return (
     <Box sx={sx.wrapper}>
       <Box sx={sx.header}>
-        <Button onClick={onBack} sx={sx.backBtn}>← Back to Customers</Button>
+        <Button onClick={onBack} sx={sx.backBtn}>Back to Customers</Button>
         <Box sx={sx.headerMain}>
           <Box sx={sx.headerNameRow}>
             <Typography sx={sx.userName}>{user.firstName} {user.lastName}</Typography>
             <Chip label={user.accountStatus} size="small" sx={sx.statusChip(sc)} />
           </Box>
           <Typography sx={sx.userMeta}>
-            {user.id} · {user.email} · Member since {user.joinDate}
+            {user.id} | {user.email} | Member since {user.joinDate}
           </Typography>
         </Box>
       </Box>

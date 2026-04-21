@@ -15,7 +15,7 @@ export default function PurchaseHistory({ purchases }) {
       <Box sx={sx.sectionHeader}>
         <Typography sx={sx.sectionTitle}>Purchase History</Typography>
         <Typography sx={sx.txnSummary}>
-          {purchases.length} transaction{purchases.length !== 1 ? "s" : ""} · Total paid:{" "}
+          {purchases.length} transaction{purchases.length !== 1 ? "s" : ""} | Total paid:{" "}
           <span style={sx.txnTotalText}>${totalPaid.toFixed(2)}</span>
         </Typography>
       </Box>

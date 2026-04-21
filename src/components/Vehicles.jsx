@@ -156,7 +156,7 @@ function VehicleForm({ form, setForm }) {
                 >
                     {WASH_PLANS.map((p) => (
                         <MenuItem key={p} value={p} sx={sx.menuItem}>
-                            {p} — ${PLAN_PRICES[p]}/mo
+                            {p} - ${PLAN_PRICES[p]}/mo
                         </MenuItem>
                     ))}
                 </Select>
@@ -196,7 +196,7 @@ function VehicleCard({ vehicle, onEdit, onRemove, onTransfer, canTransfer }) {
                         {vehicle.year} {vehicle.make} {vehicle.model}
                     </Typography>
                     <Typography sx={sx.vehicleMeta}>
-                        {vehicle.color} · {vehicle.plate}
+                        {vehicle.color} | {vehicle.plate}
                     </Typography>
                 </Box>
                 <StatusChip status={vehicle.status} />
@@ -224,7 +224,7 @@ function VehicleCard({ vehicle, onEdit, onRemove, onTransfer, canTransfer }) {
                 <Box>
                     <Typography sx={sx.fieldLabel}>Next Billing</Typography>
                     <Typography sx={sx.fieldValue}>
-                        {vehicle.nextBillingDate ?? "—"}
+                        {vehicle.nextBillingDate ?? "-"}
                     </Typography>
                 </Box>
                 <Box>
@@ -460,7 +460,7 @@ export default function Vehicles({ user, onUpdateUser }) {
                         MenuProps={sx.menuProps}
                     >
                         <MenuItem value="" disabled sx={sx.menuItem}>
-                            Select a vehicle…
+                            Select a vehicle...
                         </MenuItem>
                         {user.vehicles
                             .filter((v) => v.id !== transferSource?.id)
@@ -470,7 +470,7 @@ export default function Vehicles({ user, onUpdateUser }) {
                                     value={v.id}
                                     sx={sx.menuItem}
                                 >
-                                    {v.year} {v.make} {v.model} — {v.plate}
+                                    {v.year} {v.make} {v.model} - {v.plate}
                                 </MenuItem>
                             ))}
                     </Select>
