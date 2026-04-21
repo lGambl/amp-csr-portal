@@ -6,6 +6,7 @@ export const THEMES = [
         id: "midnight",
         name: "Midnight",
         description: "Low light",
+        mode: "dark",
         vars: {
             "--bg": "#0d0f14",
             "--surface": "#161921",
@@ -45,6 +46,7 @@ export const THEMES = [
         id: "daylight",
         name: "Daylight",
         description: "Bright desk",
+        mode: "light",
         vars: {
             "--bg": "#f5f7fb",
             "--surface": "#ffffff",
@@ -84,6 +86,7 @@ export const THEMES = [
         id: "carbon",
         name: "Carbon",
         description: "Neutral dark",
+        mode: "dark",
         vars: {
             "--bg": "#111111",
             "--surface": "#1b1c1e",
@@ -123,6 +126,7 @@ export const THEMES = [
         id: "contrast",
         name: "Contrast",
         description: "Maximum legibility",
+        mode: "dark",
         vars: {
             "--bg": "#000000",
             "--surface": "#0b0b0b",

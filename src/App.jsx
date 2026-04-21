@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Box, Button, Typography } from '@mui/material'
+import { createTheme, ThemeProvider } from '@mui/material/styles'
 import { generateUsers } from './data/mockData'
 import UserList from './components/UserList'
 import UserDetail from './components/UserDetail'
@@ -21,6 +22,25 @@ function App() {
   const [themeId, setThemeId] = useState(getInitialThemeId);
   const currentTheme = getTheme(themeId);
 
+  const muiTheme = useMemo(() => createTheme({
+    palette: {
+      mode: currentTheme.mode,
+      background: {
+        paper:   currentTheme.vars['--surface'],
+        default: currentTheme.vars['--bg'],
+      },
+      text: {
+        primary:   currentTheme.vars['--text'],
+        secondary: currentTheme.vars['--text2'],
+        disabled:  currentTheme.vars['--text3'],
+      },
+      divider: currentTheme.vars['--border'],
+      primary: { main: currentTheme.vars['--accent'] },
+      action:  { hover: currentTheme.vars['--surface2'] },
+    },
+    typography: { fontFamily: "'DM Sans', sans-serif" },
+  }), [currentTheme]);
+
   useEffect(() => {
     applyTheme(currentTheme);
     window.localStorage.setItem(THEME_STORAGE_KEY, currentTheme.id);
@@ -38,6 +58,7 @@ function App() {
   };
 
   return (
+    <ThemeProvider theme={muiTheme}>
     <Box sx={sx.root}>
       <Box sx={sx.header}>
         <Box>
@@ -74,6 +95,7 @@ function App() {
         <UserList users={users} onSelectUser={setSelectedUser} />
       )}
     </Box>
+    </ThemeProvider>
   );
 }
 
