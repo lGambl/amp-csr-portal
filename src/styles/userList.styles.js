@@ -38,8 +38,8 @@ const cell = {
 };
 
 export const sx = {
-  wrapper:        { p: 3, background: "var(--bg)", minHeight: "100vh" },
-  statGrid:       { display: "grid", gridTemplateColumns: { xs: "1fr", sm: "repeat(2, 1fr)", lg: "repeat(4, 1fr)" }, gap: 2, mb: 3 },
+  wrapper:        { p: { xs: 2, md: 3 }, background: "var(--bg)", minHeight: "100vh" },
+  statGrid:       { display: "grid", gridTemplateColumns: { xs: "repeat(2, 1fr)", md: "repeat(2, 1fr)", lg: "repeat(4, 1fr)" }, gap: { xs: 1.5, md: 2 }, mb: { xs: 2, md: 3 } },
   statCard:       (color) => ({ background: "var(--surface)", border: "1px solid var(--border)", borderTop: `2px solid ${color}`, borderRadius: "10px", p: 2.5 }),
   statNumber:     (color) => ({ fontSize: 30, fontWeight: 700, color, fontFamily: "'Syne', sans-serif", lineHeight: 1 }),
   statLabel:      { fontSize: 12, color: "var(--text3)", mt: 0.75, fontFamily: "'DM Sans', sans-serif" },

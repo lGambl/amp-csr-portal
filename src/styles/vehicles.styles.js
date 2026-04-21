@@ -2,7 +2,7 @@ const _fieldValue = { fontSize: 13, color: "var(--text)", fontFamily: "'DM Sans'
 
 export const sx = {
   // Section
-  sectionHeader: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 1.5, mb: 3 },
+  sectionHeader: { display: "flex", justifyContent: "space-between", alignItems: { xs: "flex-start", sm: "center" }, flexDirection: { xs: "column", sm: "row" }, flexWrap: "wrap", gap: 1.5, mb: 3 },
   sectionTitle:  { fontSize: 15, fontWeight: 600, color: "var(--text)", fontFamily: "'DM Sans', sans-serif" },
 
   // Vehicle grid & card

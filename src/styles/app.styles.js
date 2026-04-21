@@ -1,8 +1,8 @@
 export const sx = {
   root: { background: "var(--bg)", color: "var(--text)", minHeight: "100vh" },
   header: {
-    px: 3,
-    pt: 3,
+    px: { xs: 2, md: 3 },
+    pt: { xs: 2, md: 3 },
     pb: 1.5,
     borderBottom: "1px solid var(--border)",
     background: "var(--surface)",
@@ -13,7 +13,7 @@ export const sx = {
     flexWrap: "wrap",
   },
   title: {
-    fontSize: 20,
+    fontSize: { xs: 17, md: 20 },
     fontWeight: 700,
     color: "var(--text)",
     fontFamily: "'Syne', sans-serif",

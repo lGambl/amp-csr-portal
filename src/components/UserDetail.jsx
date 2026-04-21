@@ -20,13 +20,16 @@ export default function UserDetail({ user, onBack, onUpdateUser }) {
             <Chip label={user.accountStatus} size="small" sx={sx.statusChip(sc)} />
           </Box>
           <Typography sx={sx.userMeta}>
-            {user.id} | {user.email} | Member since {user.joinDate}
+            {user.id} · {user.email}
+          </Typography>
+          <Typography sx={sx.userMeta}>
+            Member since {user.joinDate}
           </Typography>
         </Box>
       </Box>
 
       <Box sx={sx.tabsBar}>
-        <Tabs value={tab} onChange={(_, v) => setTab(v)} sx={sx.tabs}>
+        <Tabs value={tab} onChange={(_, v) => setTab(v)} sx={sx.tabs} variant="scrollable" scrollButtons="auto">
           <Tab label="Account Info"                         disableRipple sx={sx.tab} />
           <Tab label={`Vehicles (${user.vehicles.length})`} disableRipple sx={sx.tab} />
           <Tab label="Purchase History"                     disableRipple sx={sx.tab} />

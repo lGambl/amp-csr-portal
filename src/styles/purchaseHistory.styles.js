@@ -1,7 +1,7 @@
 const _tableCell = { borderBottom: "1px solid var(--border)", color: "var(--text)", fontFamily: "'DM Sans', sans-serif", fontSize: 13, py: 1.5, px: 2 };
 
 export const sx = {
-  sectionHeader:  { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 1.5, mb: 3 },
+  sectionHeader:  { display: "flex", justifyContent: "space-between", alignItems: { xs: "flex-start", sm: "center" }, flexDirection: { xs: "column", sm: "row" }, flexWrap: "wrap", gap: 1, mb: 3 },
   sectionTitle:   { fontSize: 15, fontWeight: 600, color: "var(--text)", fontFamily: "'DM Sans', sans-serif" },
   txnSummary:     { color: "var(--text3)", fontSize: 12 },
   txnTotalText:   { color: "var(--green)" },
