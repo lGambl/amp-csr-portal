@@ -1,0 +1,45 @@
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+@media (min-width: 600px) {
+  .sectionHeader { flex-direction: row; align-items: center; }
+}
+
+.sectionTitle {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+}
+
+.txnSummary {
+  color: var(--text3);
+  font-size: 12px;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.txnTotal { color: var(--green); }
+
+.tableContainer {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow-x: auto;
+}
+
+.cellMono {
+  color: var(--text2) !important;
+  font-family: 'DM Mono', monospace !important;
+  font-size: 12px !important;
+}
+
+.cellMuted { color: var(--text2) !important; }
+
+.amountPaid  { color: var(--green) !important; }
+.amountFailed { color: var(--red) !important; }

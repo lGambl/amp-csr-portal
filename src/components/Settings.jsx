@@ -1,83 +1,74 @@
-import { Box, Button, Typography } from "@mui/material";
 import { THEMES } from "../theme/themes";
-import { sx } from "../styles/settings.styles";
+import styles from "../styles/Settings.module.css";
 
 const SWATCHES = ["--bg", "--surface", "--accent", "--green", "--red"];
 
 function ThemePreview({ theme }) {
   return (
-    <Box sx={sx.preview(theme.vars)}>
-      <Box sx={sx.previewBar}>
-        <Box sx={sx.previewDot("var(--accent)")} />
-        <Box sx={sx.previewDot("var(--green)")} />
-        <Box sx={sx.previewDot("var(--red)")} />
-      </Box>
-      <Box sx={sx.previewGrid}>
-        <Box sx={sx.previewPanel}>
-          <Box sx={sx.previewLine(true)} />
-          <Box sx={sx.previewLine(false)} />
-          <Box sx={sx.previewButton} />
-        </Box>
-        <Box sx={sx.previewPanel}>
-          <Box sx={sx.previewLine(false)} />
-          <Box sx={sx.previewLine(true)} />
-        </Box>
-      </Box>
-    </Box>
+    <div className={styles.preview} style={theme.vars}>
+      <div className={styles.previewBar}>
+        <div className={styles.previewDot} style={{ background: "var(--accent)" }} />
+        <div className={styles.previewDot} style={{ background: "var(--green)" }} />
+        <div className={styles.previewDot} style={{ background: "var(--red)" }} />
+      </div>
+      <div className={styles.previewGrid}>
+        <div className={styles.previewPanel}>
+          <div className={`${styles.previewLine} ${styles.previewLineWide}`} />
+          <div className={styles.previewLine} />
+          <div className={styles.previewButton} />
+        </div>
+        <div className={styles.previewPanel}>
+          <div className={styles.previewLine} />
+          <div className={`${styles.previewLine} ${styles.previewLineWide}`} />
+        </div>
+      </div>
+    </div>
   );
 }
 
-export default function Settings({ themeId, onThemeChange, onBackToCustomers }) {
+export default function Settings({ themeId, onThemeChange }) {
   return (
-    <Box sx={sx.wrapper}>
-      <Box sx={sx.header}>
-        <Box>
-          <Typography sx={sx.title}>Settings</Typography>
-          <Typography sx={sx.meta}>Theme</Typography>
-        </Box>
-      </Box>
+    <div className={styles.wrapper}>
+      <div className={styles.header}>
+        <div>
+          <h1 className={styles.title}>Settings</h1>
+          <p className={styles.meta}>Appearance</p>
+        </div>
+      </div>
 
-      <Box sx={sx.section}>
-        <Typography sx={sx.sectionTitle}>Theme</Typography>
-        <Box sx={sx.themeGrid}>
+      <div className={styles.section}>
+        <h2 className={styles.sectionTitle}>Theme</h2>
+        <div className={styles.themeGrid}>
           {THEMES.map((theme) => {
             const active = theme.id === themeId;
-
             return (
-              <Box
+              <button
                 key={theme.id}
-                component="button"
                 type="button"
                 onClick={() => onThemeChange(theme.id)}
                 aria-pressed={active}
-                sx={sx.themeCard(active)}
+                className={`${styles.themeCard}${active ? ` ${styles.themeCardActive}` : ""}`}
               >
-                <Box sx={sx.cardHeader}>
-                  <Box>
-                    <Typography sx={sx.themeName}>{theme.name}</Typography>
-                    <Typography sx={sx.themeDescription}>
-                      {theme.description}
-                    </Typography>
-                  </Box>
-                  {active && (
-                    <Typography component="span" sx={sx.selectedBadge}>
-                      Selected
-                    </Typography>
-                  )}
-                </Box>
+                <div className={styles.cardHeader}>
+                  <div>
+                    <p className={styles.themeName}>{theme.name}</p>
+                    <p className={styles.themeDescription}>{theme.description}</p>
+                  </div>
+                  {active && <span className={styles.selectedBadge}>Selected</span>}
+                </div>
 
-                <Box sx={sx.swatchRow}>
+                <div className={styles.swatchRow}>
                   {SWATCHES.map((name) => (
-                    <Box key={name} sx={sx.swatch(theme.vars[name])} />
+                    <div key={name} className={styles.swatch} style={{ background: theme.vars[name] }} />
                   ))}
-                </Box>
+                </div>
 
                 <ThemePreview theme={theme} />
-              </Box>
+              </button>
             );
           })}
-        </Box>
-      </Box>
-    </Box>
+        </div>
+      </div>
+    </div>
   );
 }

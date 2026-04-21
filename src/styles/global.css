@@ -52,3 +52,227 @@ body {
   line-height: 1.5;
 }
 
+/* ── MUI: Inputs ──────────────────────────────────────────── */
+
+.MuiOutlinedInput-root {
+  color: var(--text) !important;
+  font-size: 13px !important;
+  font-family: 'DM Sans', sans-serif !important;
+  background: var(--surface2) !important;
+}
+.MuiOutlinedInput-notchedOutline { border-color: var(--border) !important; }
+.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline { border-color: var(--border2) !important; }
+.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline { border-color: var(--accent) !important; }
+.MuiSelect-icon { color: var(--text3) !important; }
+.MuiInputBase-input { font-family: 'DM Sans', sans-serif !important; font-size: 13px !important; }
+.MuiInputBase-root.MuiInputBase-colorPrimary:not(.MuiOutlinedInput-root) {
+  color: var(--text) !important;
+  font-family: 'DM Sans', sans-serif !important;
+  font-size: 13px !important;
+}
+
+/* ── MUI: Menu / Select dropdown ─────────────────────────── */
+
+.MuiMenu-paper,
+.MuiPopover-paper {
+  background: var(--surface2) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 6px !important;
+  margin-top: 4px;
+}
+.MuiMenuItem-root {
+  color: var(--text) !important;
+  font-size: 13px !important;
+  font-family: 'DM Sans', sans-serif !important;
+}
+.MuiMenuItem-root:hover { background: var(--surface3) !important; }
+.MuiMenuItem-root.Mui-selected { background: var(--surface3) !important; color: var(--accent) !important; }
+.MuiMenuItem-root.Mui-selected:hover { background: var(--surface-hover) !important; }
+
+/* ── MUI: Dialog ──────────────────────────────────────────── */
+
+.MuiDialog-paper {
+  background: var(--surface) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 10px !important;
+}
+.MuiDialogTitle-root {
+  color: var(--text) !important;
+  font-family: 'DM Sans', sans-serif !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+}
+.MuiDialogContent-root { padding-top: 0 !important; }
+.MuiDialogActions-root { gap: 8px; padding: 8px 16px 16px !important; }
+
+/* ── MUI: Table ───────────────────────────────────────────── */
+
+.MuiTableCell-root {
+  border-bottom: 1px solid var(--border) !important;
+  font-family: 'DM Sans', sans-serif !important;
+  font-size: 13px !important;
+  color: var(--text) !important;
+  padding: 12px 16px !important;
+}
+.MuiTableCell-head {
+  color: var(--text3) !important;
+  font-weight: 600 !important;
+  font-size: 11px !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  background: var(--surface) !important;
+}
+.MuiTableRow-root:last-child .MuiTableCell-body { border-bottom: 0 !important; }
+.MuiTableBody-root .MuiTableRow-root:hover { background: var(--surface2) !important; }
+.MuiTableRow-root:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+
+/* ── MUI: Tabs ────────────────────────────────────────────── */
+
+.MuiTabs-indicator { background-color: var(--accent) !important; }
+.MuiTabs-scrollButtons { color: var(--text3) !important; }
+.MuiTab-root {
+  color: var(--text3) !important;
+  font-family: 'DM Sans', sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  text-transform: none !important;
+  min-height: 42px !important;
+}
+@media (min-width: 900px) { .MuiTab-root { font-size: 13px !important; } }
+.MuiTab-root.Mui-selected { color: var(--accent) !important; }
+
+/* ── MUI: TablePagination ─────────────────────────────────── */
+
+.MuiTablePagination-root {
+  color: var(--text2) !important;
+  font-family: 'DM Sans', sans-serif !important;
+  font-size: 12px !important;
+}
+.MuiTablePagination-select { color: var(--text) !important; }
+.MuiTablePagination-selectIcon { color: var(--text3) !important; }
+.MuiTablePagination-displayedRows,
+.MuiTablePagination-selectLabel {
+  font-family: 'DM Sans', sans-serif !important;
+  font-size: 12px !important;
+}
+.MuiIconButton-root { color: var(--text2) !important; }
+.MuiIconButton-root.Mui-disabled { color: var(--disabled-text) !important; }
+
+/* ── MUI: Snackbar / Alert ────────────────────────────────── */
+
+.MuiAlert-root {
+  font-family: 'DM Sans', sans-serif !important;
+  font-size: 13px !important;
+  border-radius: 8px !important;
+}
+
+/* ── Shared: Buttons ──────────────────────────────────────── */
+
+.csr-btn {
+  font-size: 12px;
+  font-family: 'DM Sans', sans-serif;
+  border-radius: 6px;
+  padding: 4px 12px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  background: transparent;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+  line-height: 1.5;
+}
+.csr-btn:disabled { cursor: not-allowed; }
+
+.csr-btn-save {
+  background: var(--accent);
+  color: var(--text-on-accent);
+  font-weight: 600;
+}
+.csr-btn-save:hover:not(:disabled) { background: var(--accent-hover); }
+.csr-btn-save:disabled { background: var(--disabled-bg); color: var(--text3); }
+
+.csr-btn-edit {
+  color: var(--accent);
+  border-color: var(--accent-border);
+}
+.csr-btn-edit:hover { background: var(--accent-soft); border-color: var(--accent); }
+
+.csr-btn-cancel { color: var(--text2); }
+.csr-btn-cancel:hover { background: var(--surface2); }
+
+.csr-btn-danger {
+  color: var(--red);
+  border-color: var(--red-outline);
+}
+.csr-btn-danger:hover { background: var(--red-soft); border-color: var(--red); }
+
+.csr-btn-outline {
+  color: var(--text2);
+  border-color: var(--border);
+}
+.csr-btn-outline:hover:not(:disabled) { background: var(--surface2); border-color: var(--border2); }
+.csr-btn-outline:disabled { color: var(--disabled-text); border-color: var(--surface2); }
+
+/* ── Shared: Status chip ──────────────────────────────────── */
+
+.status-chip {
+  font-size: 11px;
+  font-weight: 500;
+  font-family: 'DM Sans', sans-serif;
+  height: 22px;
+  border-radius: 5px;
+  padding: 0 8px;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+.status-chip[data-status="Active"]   { background: var(--green-bg);  color: var(--green);  border-color: var(--green-border);  }
+.status-chip[data-status="Inactive"] { background: var(--muted-bg);  color: var(--text2);  border-color: var(--muted-border);  }
+.status-chip[data-status="Overdue"]  { background: var(--red-bg);    color: var(--red);    border-color: var(--red-border);    }
+.status-chip[data-status="Cancelled"]{ background: var(--red-bg);    color: var(--red);    border-color: var(--red-border);    }
+.status-chip[data-status="Suspended"]{ background: var(--yellow-bg); color: var(--yellow); border-color: var(--yellow-border); }
+.status-chip[data-status="Paid"]     { background: var(--green-bg);  color: var(--green);  border-color: var(--green-border);  }
+.status-chip[data-status="Failed"]   { background: var(--red-bg);    color: var(--red);    border-color: var(--red-border);    }
+
+/* ── Shared: Field label / value ──────────────────────────── */
+
+.field-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text3);
+  font-family: 'DM Sans', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 4px;
+}
+.field-value {
+  font-size: 13px;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+}
+.field-value-muted {
+  font-size: 13px;
+  color: var(--text2);
+  font-family: 'DM Sans', sans-serif;
+}
+.field-value-accent {
+  font-size: 13px;
+  color: var(--accent);
+  font-family: 'DM Sans', sans-serif;
+}
+.field-value-mono {
+  font-size: 12px;
+  color: var(--text2);
+  font-family: 'DM Mono', monospace;
+}
+
+/* ── Shared: Divider ──────────────────────────────────────── */
+
+.csr-divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 24px 0;
+}

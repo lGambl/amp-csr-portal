@@ -1,9 +1,5 @@
-import { Box, Typography, Chip, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
-import { sx } from "../styles/purchaseHistory.styles";
-
-function TxnChip({ status }) {
-  return <Chip label={status} size="small" sx={sx.txnChip(status === "Paid")} />;
-}
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import styles from "../styles/PurchaseHistory.module.css";
 
 export default function PurchaseHistory({ purchases }) {
   const totalPaid = purchases
@@ -11,38 +7,45 @@ export default function PurchaseHistory({ purchases }) {
     .reduce((sum, p) => sum + Number(p.amount), 0);
 
   return (
-    <Box>
-      <Box sx={sx.sectionHeader}>
-        <Typography sx={sx.sectionTitle}>Purchase History</Typography>
-        <Typography sx={sx.txnSummary}>
+    <div>
+      <div className={styles.sectionHeader}>
+        <h2 className={styles.sectionTitle}>Purchase History</h2>
+        <p className={styles.txnSummary}>
           {purchases.length} transaction{purchases.length !== 1 ? "s" : ""} | Total paid:{" "}
-          <span style={sx.txnTotalText}>${totalPaid.toFixed(2)}</span>
-        </Typography>
-      </Box>
+          <span className={styles.txnTotal}>${totalPaid.toFixed(2)}</span>
+        </p>
+      </div>
 
-      <TableContainer sx={sx.tableContainer}>
-        <Table sx={sx.table}>
+      <TableContainer className={styles.tableContainer}>
+        <Table style={{ minWidth: 760 }}>
           <TableHead>
             <TableRow>
               {["Date", "Transaction ID", "Description", "Type", "Amount", "Status"].map(col => (
-                <TableCell key={col} sx={sx.headCell}>{col}</TableCell>
+                <TableCell key={col}>{col}</TableCell>
               ))}
             </TableRow>
           </TableHead>
           <TableBody>
-            {purchases.map(p => (
-              <TableRow key={p.id} sx={sx.tableRow}>
-                <TableCell sx={sx.monoCell}>{p.date}</TableCell>
-                <TableCell sx={sx.monoCell}>{p.id}</TableCell>
-                <TableCell sx={sx.tableCell}>{p.description}</TableCell>
-                <TableCell sx={sx.tableCellMuted}>{p.type}</TableCell>
-                <TableCell sx={sx.amountCell(p.status === "Paid")}>${p.amount}</TableCell>
-                <TableCell sx={sx.tableCell}><TxnChip status={p.status} /></TableCell>
-              </TableRow>
-            ))}
+            {purchases.map(p => {
+              const paid = p.status === "Paid";
+              return (
+                <TableRow key={p.id}>
+                  <TableCell className={styles.cellMono}>{p.date}</TableCell>
+                  <TableCell className={styles.cellMono}>{p.id}</TableCell>
+                  <TableCell>{p.description}</TableCell>
+                  <TableCell className={styles.cellMuted}>{p.type}</TableCell>
+                  <TableCell className={paid ? styles.amountPaid : styles.amountFailed}>
+                    ${p.amount}
+                  </TableCell>
+                  <TableCell>
+                    <span className="status-chip" data-status={p.status}>{p.status}</span>
+                  </TableCell>
+                </TableRow>
+              );
+            })}
           </TableBody>
         </Table>
       </TableContainer>
-    </Box>
+    </div>
   );
 }

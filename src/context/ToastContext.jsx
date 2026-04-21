@@ -38,6 +38,10 @@ export function ToastProvider({ children }) {
             fontSize: 13,
             borderRadius: "8px",
             "& .MuiAlert-icon": { fontSize: 18 },
+            "& .MuiAlert-action .MuiIconButton-root": {
+              color: "rgba(255,255,255,0.8)",
+              "&:hover": { color: "#fff", background: "rgba(255,255,255,0.15)" },
+            },
           }}
         >
           {toast?.message}

@@ -1,24 +1,24 @@
 import { useState } from "react";
-import { Box, Typography, TextField, Select, MenuItem, Button, Divider, Dialog, DialogTitle, DialogContent, DialogActions } from "@mui/material";
-import { sx } from "../styles/accountInfo.styles";
+import { TextField, Select, MenuItem, Dialog, DialogTitle, DialogContent, DialogActions } from "@mui/material";
+import styles from "../styles/AccountInfo.module.css";
 import { ACCOUNT_STATUSES } from "../data/mockData";
 import { useToast } from "../context/ToastContext";
 
 function InfoField({ label, editing, value, span, children }) {
   return (
-    <Box sx={{ ...sx.fieldGroup, ...(span ? { gridColumn: { xs: "span 1", md: `span ${span}` } } : {}) }}>
-      <Typography sx={sx.fieldLabel}>{label}</Typography>
-      {editing ? children : <Typography sx={sx.fieldValue}>{value}</Typography>}
-    </Box>
+    <div className={`${styles.fieldGroup}${span ? ` ${styles.spanThree}` : ""}`}>
+      <p className="field-label">{label}</p>
+      {editing ? children : <p className="field-value">{value}</p>}
+    </div>
   );
 }
 
 function toForm(u) {
   return {
     firstName: u.firstName, lastName: u.lastName,
-    email: u.email,        phone: u.phone,
-    address: u.address,    city: u.city,
-    state: u.state,        zip: u.zip,
+    email: u.email,         phone: u.phone,
+    address: u.address,     city: u.city,
+    state: u.state,         zip: u.zip,
     accountStatus: u.accountStatus,
   };
 }
@@ -29,8 +29,8 @@ function cardLabel(payment) {
 
 export default function AccountInfo({ user, onUpdateUser }) {
   const showToast = useToast();
-  const [editing, setEditing] = useState(false);
-  const [form, setForm]       = useState(() => toForm(user));
+  const [editing, setEditing]                 = useState(false);
+  const [form, setForm]                       = useState(() => toForm(user));
   const [paymentDialogOpen, setPaymentDialogOpen] = useState(false);
 
   const set = (key) => (e) => setForm(f => ({ ...f, [key]: e.target.value }));
@@ -44,6 +44,7 @@ export default function AccountInfo({ user, onUpdateUser }) {
       showToast("Failed to save account info", "error");
     }
   };
+
   const handleCancel = () => { setForm(toForm(user)); setEditing(false); };
 
   const handleSendPaymentLink = () => {
@@ -56,96 +57,98 @@ export default function AccountInfo({ user, onUpdateUser }) {
   };
 
   return (
-    <Box>
-      <Box sx={sx.sectionHeader}>
-        <Typography sx={sx.sectionTitle}>Account Information</Typography>
-        <Box sx={sx.btnRow}>
+    <div>
+      <div className={styles.sectionHeader}>
+        <h2 className={styles.sectionTitle}>Account Information</h2>
+        <div className={styles.btnRow}>
           {editing ? (
             <>
-              <Button onClick={handleCancel} sx={sx.cancelBtn}>Cancel</Button>
-              <Button onClick={handleSave} sx={sx.saveBtn}>Save Changes</Button>
+              <button onClick={handleCancel} className="csr-btn csr-btn-cancel">Cancel</button>
+              <button onClick={handleSave} className="csr-btn csr-btn-save">Save Changes</button>
             </>
           ) : (
-            <Button onClick={() => setEditing(true)} sx={sx.editBtn}>Edit</Button>
+            <button onClick={() => setEditing(true)} className="csr-btn csr-btn-edit">Edit</button>
           )}
-        </Box>
-      </Box>
+        </div>
+      </div>
 
-      <Box sx={sx.fieldGrid}>
+      <div className={styles.fieldGrid}>
         <InfoField label="First Name" editing={editing} value={user.firstName}>
-          <TextField value={form.firstName} onChange={set("firstName")} size="small" sx={sx.textField} fullWidth />
+          <TextField value={form.firstName} onChange={set("firstName")} size="small" fullWidth />
         </InfoField>
         <InfoField label="Last Name" editing={editing} value={user.lastName}>
-          <TextField value={form.lastName} onChange={set("lastName")} size="small" sx={sx.textField} fullWidth />
+          <TextField value={form.lastName} onChange={set("lastName")} size="small" fullWidth />
         </InfoField>
         <InfoField label="Account Status" editing={editing} value={user.accountStatus}>
-          <Select value={form.accountStatus} onChange={set("accountStatus")} size="small" fullWidth sx={sx.selectField} MenuProps={sx.menuProps}>
-            {ACCOUNT_STATUSES.map(s => <MenuItem key={s} value={s} sx={sx.menuItem}>{s}</MenuItem>)}
+          <Select value={form.accountStatus} onChange={set("accountStatus")} size="small" fullWidth>
+            {ACCOUNT_STATUSES.map(s => <MenuItem key={s} value={s}>{s}</MenuItem>)}
           </Select>
         </InfoField>
         <InfoField label="Email" editing={editing} value={user.email}>
-          <TextField value={form.email} onChange={set("email")} size="small" sx={sx.textField} fullWidth />
+          <TextField value={form.email} onChange={set("email")} size="small" fullWidth />
         </InfoField>
         <InfoField label="Phone" editing={editing} value={user.phone}>
-          <TextField value={form.phone} onChange={set("phone")} size="small" sx={sx.textField} fullWidth />
+          <TextField value={form.phone} onChange={set("phone")} size="small" fullWidth />
         </InfoField>
-        <Box sx={sx.fieldGroup}>
-          <Typography sx={sx.fieldLabel}>Member Since</Typography>
-          <Typography sx={sx.fieldValue}>{user.joinDate}</Typography>
-        </Box>
-      </Box>
+        <div className={styles.fieldGroup}>
+          <p className="field-label">Member Since</p>
+          <p className="field-value">{user.joinDate}</p>
+        </div>
+      </div>
 
-      <Divider sx={sx.divider} />
-      <Typography sx={sx.sectionSubtitle}>Address</Typography>
+      <hr className="csr-divider" />
+      <p className={styles.sectionSubtitle}>Address</p>
 
-      <Box sx={sx.fieldGrid}>
-        <InfoField label="Street Address" editing={editing} value={user.address} span={3}>
-          <TextField value={form.address} onChange={set("address")} size="small" sx={sx.textField} fullWidth />
+      <div className={styles.fieldGrid}>
+        <InfoField label="Street Address" editing={editing} value={user.address} span>
+          <TextField value={form.address} onChange={set("address")} size="small" fullWidth />
         </InfoField>
         <InfoField label="City" editing={editing} value={user.city}>
-          <TextField value={form.city} onChange={set("city")} size="small" sx={sx.textField} fullWidth />
+          <TextField value={form.city} onChange={set("city")} size="small" fullWidth />
         </InfoField>
         <InfoField label="State" editing={editing} value={user.state}>
-          <TextField value={form.state} onChange={set("state")} size="small" sx={sx.textField} fullWidth />
+          <TextField value={form.state} onChange={set("state")} size="small" fullWidth />
         </InfoField>
         <InfoField label="ZIP Code" editing={editing} value={user.zip}>
-          <TextField value={form.zip} onChange={set("zip")} size="small" sx={sx.textField} fullWidth />
+          <TextField value={form.zip} onChange={set("zip")} size="small" fullWidth />
         </InfoField>
-      </Box>
+      </div>
 
-      <Divider sx={sx.divider} />
-      <Box sx={sx.sectionHeader}>
-        <Typography sx={sx.sectionSubtitle} style={{ marginBottom: 0 }}>Payment Method</Typography>
-        <Button onClick={() => setPaymentDialogOpen(true)} sx={sx.editBtn}>Update Payment Method</Button>
-      </Box>
+      <hr className="csr-divider" />
+      <div className={styles.paymentHeader}>
+        <p className={styles.paymentSubtitle}>Payment Method</p>
+        <button onClick={() => setPaymentDialogOpen(true)} className="csr-btn csr-btn-edit">
+          Update Payment Method
+        </button>
+      </div>
 
-      <Box sx={{ ...sx.fieldGrid, mt: 2 }}>
-        <Box sx={sx.fieldGroup}>
-          <Typography sx={sx.fieldLabel}>Card</Typography>
-          <Typography sx={sx.fieldValue}>{cardLabel(user.payment)}</Typography>
-        </Box>
-        <Box sx={sx.fieldGroup}>
-          <Typography sx={sx.fieldLabel}>Expiry</Typography>
-          <Typography sx={sx.fieldValue}>{user.payment.expMonth}/{user.payment.expYear}</Typography>
-        </Box>
-      </Box>
+      <div className={styles.paymentGrid}>
+        <div className={styles.fieldGroup}>
+          <p className="field-label">Card</p>
+          <p className="field-value">{cardLabel(user.payment)}</p>
+        </div>
+        <div className={styles.fieldGroup}>
+          <p className="field-label">Expiry</p>
+          <p className="field-value">{user.payment.expMonth}/{user.payment.expYear}</p>
+        </div>
+      </div>
 
-      <Dialog open={paymentDialogOpen} onClose={() => setPaymentDialogOpen(false)} paperprops={{ sx: sx.dialogPaper }}>
-        <DialogTitle sx={sx.dialogTitle}>Update Payment Method</DialogTitle>
-        <DialogContent sx={sx.dialogContent}>
-          <Typography sx={sx.dialogBody}>
+      <Dialog open={paymentDialogOpen} onClose={() => setPaymentDialogOpen(false)}>
+        <DialogTitle>Update Payment Method</DialogTitle>
+        <DialogContent>
+          <p className={styles.dialogBody}>
             To securely update the payment method on file, a link will be sent to the customer at:
-          </Typography>
-          <Typography sx={sx.dialogEmail}>{user.email}</Typography>
-          <Typography sx={sx.dialogBody} style={{ marginTop: 8 }}>
+          </p>
+          <p className={styles.dialogEmail}>{user.email}</p>
+          <p className={styles.dialogBody} style={{ marginTop: 8 }}>
             The link expires in 24 hours and will allow the customer to enter new card details.
-          </Typography>
+          </p>
         </DialogContent>
-        <DialogActions sx={sx.dialogActions}>
-          <Button onClick={() => setPaymentDialogOpen(false)} sx={sx.cancelBtn}>Cancel</Button>
-          <Button onClick={handleSendPaymentLink} sx={sx.saveBtn}>Send Link</Button>
+        <DialogActions>
+          <button onClick={() => setPaymentDialogOpen(false)} className="csr-btn csr-btn-cancel">Cancel</button>
+          <button onClick={handleSendPaymentLink} className="csr-btn csr-btn-save">Send Link</button>
         </DialogActions>
       </Dialog>
-    </Box>
+    </div>
   );
 }
