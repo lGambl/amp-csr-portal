@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import styles from "../styles/AccountInfo.module.css";
 import { ACCOUNT_STATUSES } from "../data/mockData";
-import { useToast } from "../context/ToastContext";
+import { useToast } from "../hooks/useToast";
 
 function InfoField({ label, editing, value, span, children }) {
     return (

@@ -15,7 +15,7 @@ import {
     MODELS,
     COLORS,
 } from "../data/mockData";
-import { useToast } from "../context/ToastContext";
+import { useToast } from "../hooks/useToast";
 import styles from "../styles/Vehicles.module.css";
 
 const CURRENT_YEAR = new Date().getFullYear();
