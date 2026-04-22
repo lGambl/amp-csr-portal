@@ -304,8 +304,9 @@ export default function Vehicles({ user, onUpdateUser }) {
 
     const subForVehicle = (vehicleId) =>
         user.subscriptions.find((s) => s.vehicleId === vehicleId) ?? null;
-    const vehiclesWithoutSub = user.vehicles.filter(
-        (v) => !subForVehicle(v.id),
+    const transferSourceVehicleId = transferSub?.vehicleId;
+    const otherVehicles = user.vehicles.filter(
+        (v) => v.id !== transferSourceVehicleId,
     );
 
     const filteredVehicles = search.trim()
@@ -446,17 +447,21 @@ export default function Vehicles({ user, onUpdateUser }) {
 
     const doTransfer = () => {
         try {
+            const targetSub = subForVehicle(transferTargetId);
+            const isSwap = !!targetSub;
             update(
                 user.vehicles,
-                user.subscriptions.map((s) =>
-                    s.id === transferSub.id
-                        ? { ...s, vehicleId: transferTargetId }
-                        : s,
-                ),
+                user.subscriptions.map((s) => {
+                    if (s.id === transferSub.id)
+                        return { ...s, vehicleId: transferTargetId };
+                    if (isSwap && s.id === targetSub.id)
+                        return { ...s, vehicleId: transferSub.vehicleId };
+                    return s;
+                }),
             );
             setTransferSub(null);
             setTransferTargetId("");
-            showToast("Subscription transferred");
+            showToast(isSwap ? "Subscriptions swapped" : "Subscription transferred");
         } catch {
             showToast("Failed to transfer subscription", "error");
         }
@@ -510,7 +515,7 @@ export default function Vehicles({ user, onUpdateUser }) {
                             key={v.id}
                             vehicle={v}
                             sub={sub}
-                            canTransfer={vehiclesWithoutSub.length > 0}
+                            canTransfer={user.vehicles.length > 1}
                             onEditVehicle={() => setEditVehicleForm({ ...v })}
                             onRemoveVehicle={() => setRemoveVehicleTarget(v)}
                             onEditSub={() => setEditSubForm({ ...sub })}
@@ -743,16 +748,21 @@ export default function Vehicles({ user, onUpdateUser }) {
                         <MenuItem value="" disabled>
                             Select a vehicle...
                         </MenuItem>
-                        {vehiclesWithoutSub.map((v) => (
-                            <MenuItem key={v.id} value={v.id}>
-                                {v.year} {v.make} {v.model} — {v.plate}
-                            </MenuItem>
-                        ))}
+                        {otherVehicles.map((v) => {
+                            const targetSub = subForVehicle(v.id);
+                            return (
+                                <MenuItem key={v.id} value={v.id}>
+                                    {v.year} {v.make} {v.model} — {v.plate}
+                                    {targetSub ? ` (${targetSub.plan})` : ""}
+                                </MenuItem>
+                            );
+                        })}
                     </Select>
                     {transferTargetVehicle && (
                         <p className={styles.transferNote}>
-                            The source vehicle will have no subscription after
-                            transfer.
+                            {subForVehicle(transferTargetId)
+                                ? `This will swap plans — the target vehicle's ${subForVehicle(transferTargetId).plan} plan will move to the source vehicle.`
+                                : "The source vehicle will have no subscription after transfer."}
                         </p>
                     )}
                 </DialogContent>
