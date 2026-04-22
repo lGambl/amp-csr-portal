@@ -44,6 +44,12 @@ html, body, #root {
   overflow: hidden;
   background: var(--bg);
 }
+@media (max-width: 899px) {
+  html, body, #root {
+    height: auto;
+    overflow: auto;
+  }
+}
 
 body {
   color: var(--text);
