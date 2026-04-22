@@ -38,7 +38,18 @@ export const STATUS = [
 
 export const ACCOUNT_STATUSES = ["Active", "Inactive", "Cancelled"];
 
-export const STATES = ["CA", "TX", "FL", "NY", "WA", "CO", "IL", "GA", "AZ", "NC"];
+export const STATES = [
+    "CA",
+    "TX",
+    "FL",
+    "NY",
+    "WA",
+    "CO",
+    "IL",
+    "GA",
+    "AZ",
+    "NC",
+];
 
 export const CARD_TYPES = ["Visa", "Mastercard", "Amex", "Discover"];
 
@@ -309,10 +320,7 @@ export function generateUsers() {
             ),
             state: pick(STATES, r),
             zip: `${Math.floor(10000 + r() * 90000)}`,
-            accountStatus: pick(
-                ACCOUNT_STATUSES,
-                r,
-            ),
+            accountStatus: pick(ACCOUNT_STATUSES, r),
             payment: { cardType, last4, expMonth, expYear },
             vehicles,
             subscriptions,
