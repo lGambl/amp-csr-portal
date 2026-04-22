@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
     Table,
     TableBody,
@@ -9,7 +10,17 @@ import {
 import styles from "../styles/PurchaseHistory.module.css";
 
 export default function PurchaseHistory({ purchases }) {
-    const totalPaid = purchases
+    const [search, setSearch] = useState("");
+
+    const filtered = search.trim()
+        ? purchases.filter((p) => {
+              const q = search.toLowerCase();
+              return [p.date, p.id, p.description, p.type, p.amount, p.status]
+                  .some((v) => String(v ?? "").toLowerCase().includes(q));
+          })
+        : purchases;
+
+    const totalPaid = filtered
         .filter((p) => p.status === "Paid")
         .reduce((sum, p) => sum + Number(p.amount), 0);
 
@@ -18,12 +29,27 @@ export default function PurchaseHistory({ purchases }) {
             <div className={styles.sectionHeader}>
                 <h2 className={styles.sectionTitle}>Purchase History</h2>
                 <p className={styles.txnSummary}>
-                    {purchases.length} transaction
-                    {purchases.length !== 1 ? "s" : ""} | Total paid:{" "}
+                    {filtered.length} transaction
+                    {filtered.length !== 1 ? "s" : ""} | Total paid:{" "}
                     <span className={styles.txnTotal}>
                         ${totalPaid.toFixed(2)}
                     </span>
                 </p>
+            </div>
+
+            <div className={styles.toolbar}>
+                <div className={styles.searchWrap}>
+                    <span className={styles.searchIcon}>⌕</span>
+                    <input
+                        className={styles.searchInput}
+                        placeholder="Date, ID, description, type, amount..."
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                    />
+                </div>
+                <span className={styles.resultCount}>
+                    {filtered.length} of {purchases.length}
+                </span>
             </div>
 
             <TableContainer className={styles.tableContainer}>
@@ -43,7 +69,7 @@ export default function PurchaseHistory({ purchases }) {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {purchases.map((p) => {
+                        {filtered.map((p) => {
                             const paid = p.status === "Paid";
                             return (
                                 <TableRow key={p.id}>
